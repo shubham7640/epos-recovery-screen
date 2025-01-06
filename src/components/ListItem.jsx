@@ -1,4 +1,34 @@
+import { useState } from "react";
+import PopUp from "./PopUp";
+
 const ListItem = ({ application,updateApplication, selectApplication, bulkAppList }) => {
+
+  const buttonListData = [
+    {
+      text: 'Copy Application Number',
+      buttonFunction: () => {alert('hello')}
+    },
+    // {
+    //   text: 'Copy Application Number',
+    //   buttonFunction: () => {alert('hello')}
+    // },
+    // {
+    //   text: 'Copy Application Number',
+    //   buttonFunction: () => {alert('hello')}
+    // }
+
+  ];
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [title, setTitle] = useState("SUCCESS");
+  const [details, setDetails] = useState("THIS IS TEST DATA");
+  const [buttonList, setButtonList] = useState (buttonListData);
+
+
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -56,7 +86,10 @@ const ListItem = ({ application,updateApplication, selectApplication, bulkAppLis
             <a
               href="#"
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              onClick={() => updateApplication(application.applicationNo)}
+              onClick={() => 
+                togglePopup()
+                
+                }
             >
               Recover
             </a>
@@ -72,6 +105,7 @@ const ListItem = ({ application,updateApplication, selectApplication, bulkAppLis
           </a>
         </td>
       </tr>
+      {isPopupOpen && <PopUp title= {title} details={details} togglePopup = {togglePopup} buttonList = {buttonList}></PopUp>}
     </>
   );
 };
